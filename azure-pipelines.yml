@@ -10,10 +10,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-
+- task: Bash@3
+  inputs:
+    script:  echo 'Hello world'
 - task: DotNetCoreCLI@2
   displayName: Run unit tests
   inputs:
     command: 'test'
-    projects: '**/*UnitTests.cs'
+    projects: '**/*UnitTests.csproj'
     testRunTitle: 'Weather Forecast Unit Tests'
