@@ -43,3 +43,13 @@ stages:
         deploy:
           steps:
           - script: echo Hello TESTI!
+- stage: Staging
+  jobs:
+  - deployment: DeployAppTest
+    environment: 'staging'
+    dependsOn: DevEnv
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello STAGING!
