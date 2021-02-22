@@ -36,6 +36,7 @@ stages:
           - script: echo Hello DEV!
   - deployment: DeployAppTest
     environment: 'testi'
+    dependsOn: DeployAppDev
     strategy:
       runOnce:
         deploy:
