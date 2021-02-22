@@ -71,4 +71,13 @@ stages:
       runOnce:
         deploy:
           steps:
-          - script: echo TODO run integration tests fro YAML...
+            - task: VSTest@2
+              inputs:
+                testSelector: 'testAssemblies'
+                testAssemblyVer2: |
+                  **\IntegrationTests.dll
+                  !**\*TestAdapter.dll
+                  !**\obj\**
+                searchFolder: '$(System.DefaultWorkingDirectory)'
+                testRunTitle: 'Dev Env Integration Tests'
+                failOnMinTestsNotRun: true
