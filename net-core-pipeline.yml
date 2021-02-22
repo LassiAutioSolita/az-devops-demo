@@ -72,6 +72,7 @@ stages:
         deploy:
           steps:
             - task: VSTest@2
+              displayName: Run integration tests against dev env
               inputs:
                 testSelector: 'testAssemblies'
                 testAssemblyVer2: |
