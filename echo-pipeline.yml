@@ -9,7 +9,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu-2004
 
 stages:
 - stage: Build
@@ -25,7 +25,7 @@ stages:
   - job: TestOnLinux
     steps:
     - script: echo Testing on Linux!
-- stage: Deploy
+- stage: DevEnv
   jobs:
   - deployment: DeployAppDev
     environment: 'kehitys'
@@ -34,9 +34,10 @@ stages:
         deploy:
           steps:
           - script: echo Hello DEV!
+- stage: TestEnv
+  jobs:
   - deployment: DeployAppTest
     environment: 'testi'
-    dependsOn: DeployAppDev
     strategy:
       runOnce:
         deploy:
