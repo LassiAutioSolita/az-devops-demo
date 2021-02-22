@@ -60,4 +60,15 @@ stages:
       runOnce:
         deploy:
           steps:
-          - script: echo Hello DEV!
+          - script: echo Faking that app is deployed to dev env...
+
+- stage: TestDev
+  displayName: Run integration tests against deployed app in dev end
+  jobs:
+  - deployment: TestDev
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo TODO run integration tests fro YAML...
