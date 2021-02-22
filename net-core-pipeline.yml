@@ -12,43 +12,42 @@ variables:
 pool:
   vmImage: ubuntu-20.04
 
-steps:
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet test
-  inputs:
-    command: 'test'
-    projects: '**/*UnitTests.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet publish
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/AzDevOpsDemoWebApplication.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/build'
-    zipAfterPublish: false
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet publish integration tests
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/IntegrationTests.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/integration_tests'
-    zipAfterPublish: false
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish Build Artifact - The Build
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
-    ArtifactName: 'build'
-    publishLocation: 'Container'
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish Build Artifact - The Integration Tests
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/integration_tests'
-    ArtifactName: 'integration_tests'
-    publishLocation: 'Container'
+stages:
+- stage: Build
+  jobs:
+    - job: Build
+      steps:
+        - task: DotNetCoreCLI@2
+          displayName: dotnet test
+          inputs:
+            command: 'test'
+            projects: '**/*UnitTests.csproj'
+            arguments: '--configuration $(buildConfiguration)'
+        - task: DotNetCoreCLI@2
+          displayName: dotnet publish
+          inputs:
+            command: 'publish'
+            publishWebProjects: false
+            projects: '**/AzDevOpsDemoWebApplication.csproj'
+            arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/build'
+            zipAfterPublish: false
+        - task: DotNetCoreCLI@2
+          displayName: dotnet publish integration tests
+          inputs:
+            command: 'publish'
+            publishWebProjects: false
+            projects: '**/IntegrationTests.csproj'
+            arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/integration_tests'
+            zipAfterPublish: false
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Build Artifact - The Build
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+            ArtifactName: 'build'
+            publishLocation: 'Container'
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Build Artifact - The Integration Tests
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/integration_tests'
+            ArtifactName: 'integration_tests'
+            publishLocation: 'Container'
