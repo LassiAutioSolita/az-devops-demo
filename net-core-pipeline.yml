@@ -52,12 +52,12 @@ stages:
             ArtifactName: 'integration_tests'
             publishLocation: 'Container'
 
-- stage: Deploy to Test Env
+- stage: DeployToDev
   jobs:
-  - deployment: DeployAppTest
-    environment: 'testi'
+  - deployment: DeployToDev
+    environment: 'dev'
     strategy:
       runOnce:
         deploy:
           steps:
-          - script: echo Hello TESTI!
+          - script: echo Hello DEV!
