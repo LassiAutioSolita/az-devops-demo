@@ -15,7 +15,7 @@ pool:
 stages:
 - stage: Build
   jobs:
-    - job: Build
+    - job: dotnet_test
       steps:
         - task: DotNetCoreCLI@2
           displayName: dotnet test
@@ -23,6 +23,8 @@ stages:
             command: 'test'
             projects: '**/*UnitTests.csproj'
             arguments: '--configuration $(buildConfiguration)'
+    - job: dotnet_publish
+      steps:
         - task: DotNetCoreCLI@2
           displayName: dotnet publish
           inputs:
@@ -39,6 +41,8 @@ stages:
             projects: '**/IntegrationTests.csproj'
             arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/integration_tests'
             zipAfterPublish: false
+    - job: publish_pipeline_artifacts
+      steps:
         - task: PublishBuildArtifacts@1
           displayName: Publish Build Artifact - The Build
           inputs:
