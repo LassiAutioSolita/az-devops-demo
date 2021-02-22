@@ -8,8 +8,8 @@ trigger:
    include:
      - main
   paths:
-    exclude:
-    - echo-pipeline.yml
+   include:
+     - azure-pipelines.yml
 
 
 pool:
