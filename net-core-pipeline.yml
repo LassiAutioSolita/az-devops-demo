@@ -26,11 +26,27 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    projects: '**/AzDevOpsDemoWebApplication.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/build'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish integration tests
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/IntegrationTests.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/integration_tests'
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish Build Artifact - The Build
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+    ArtifactName: 'build'
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Build Artifact - The Integration Tests
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/integration_tests'
+    ArtifactName: 'integration_tests'
     publishLocation: 'Container'
