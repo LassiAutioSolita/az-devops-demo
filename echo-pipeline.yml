@@ -10,8 +10,8 @@ trigger:
    include:
      - main
   paths:
-    exclude:
-    - azure-pipelines.yml
+   include:
+     - echo-pipeline.yml
 
 pool:
   vmImage: ubuntu-18.04
