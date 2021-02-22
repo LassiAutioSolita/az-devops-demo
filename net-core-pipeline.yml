@@ -79,6 +79,6 @@ stages:
                   **\IntegrationTests.dll
                   !**\*TestAdapter.dll
                   !**\obj\**
-                searchFolder: '$(System.DefaultWorkingDirectory)'
+                searchFolder: '$(System.ArtifactsDirectory)'
                 testRunTitle: 'Dev Env Integration Tests'
                 failOnMinTestsNotRun: true
