@@ -6,7 +6,12 @@
 name: Echo Pipeline
 
 trigger:
-- main
+  branches:
+   include:
+     - main
+  paths:
+    exclude:
+    - azure-pipelines.yml
 
 pool:
   vmImage: ubuntu-18.04
