@@ -27,13 +27,14 @@ stages:
     - script: echo Testing on Linux!
 - stage: Deploy
   jobs:
-  - deployment: DeployApp
+  - deployment: DeployAppDev
     environment: 'kehitys'
     strategy:
       runOnce:
         deploy:
           steps:
           - script: echo Hello DEV!
+  - deployment: DeployAppTest
     environment: 'testi'
     strategy:
       runOnce:
