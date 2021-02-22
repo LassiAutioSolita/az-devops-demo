@@ -9,7 +9,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-2004
+  vmImage: ubuntu-18.04
 
 stages:
 - stage: Build
