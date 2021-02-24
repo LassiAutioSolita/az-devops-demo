@@ -13,5 +13,11 @@ namespace AzDevOpsDemoWebApplicationUnitTests
             sut.TemperatureC = 38;
             Assert.AreEqual(100, sut.TemperatureF);
         }
+
+        [TestMethod]
+        public void ForceFail()
+        {
+            Assert.Fail("Testing forced failure");
+        }
     }
 }
